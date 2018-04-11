@@ -16,7 +16,7 @@ var app = express();
 app.use(logger("dev"));
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));

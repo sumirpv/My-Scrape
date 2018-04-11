@@ -14,43 +14,69 @@ var db = require("../models/index.js");
 
 module.exports = function(app){
 
-  app.get("/", (req, res) => res.render("index"));
+  //app.get("/", (req, res) => res.render("index"));
+
+  app.get("/", function(req, res) {
+
+    db.Article.find({})
+    .then(function(dbArticle) {
+      // If we were able to successfully find Articles, send them back to the client
+      console.log(dbArticle);
+
+      var articles={
+        articles :dbArticle
+      }
+       
+    res.render("index", articles);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+  });
+     
+   
+  });
+  
+  app.get("/save", function(req, res) {
+    db.Article.find({ savedArticle:true }, function(error, doc) {
+      if (error) {
+        console.log(error);
+      }
+      else {
+        var hbsArticleObject = {
+          articles: doc
+        };
+        res.render("savedArticle", hbsArticleObject);
+      }
+    });
+  });
 
   app.get("/scrape", function(req, res) {
 
     axios.get("http://www.movies.com/movie-news?pn=3").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
-
+    var result = {};
    // Now, we grab every h2 within an article tag, and do the following:
     $("li").each(function(i, element) {
       // Save an empty result object
-      var result = {};
+     
 
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this)
-      .find("div.details")
-        .find("a")
-        .text();
-      result.text = $(this)
-      .find("div.details")
-      .find("div.pTag")
-      .text();
-      result.url = $(this)
-      .find("div.image")
-      .find("a")
-      .attr("href");
-      result.img =$(this)
-      .find("div.image")
-      .find("a")
-      .find("img")
-      .attr("src")
+      .find("div.details").find("a").text();
+      result.text = $(this).find("div.details").find("div.pTag").text();
+      result.url = $(this).find("div.image").find("a").attr("href");
+      result.img =$(this).find("div.image").find("a").find("img").attr("src")
 
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
         .then(function(dbArticle) {
           // View the added result in the console
-          console.log("my data is",dbArticle);
+          console.log("Scraped Articles: " + scrapedArticles);
+          var hbsArticleObject = {
+              articles: scrapedArticles
+          };
         })
         .catch(function(err) {
           // If an error occurred, send it to the client
@@ -59,10 +85,15 @@ module.exports = function(app){
         });
     });
     // If we were able to successfully scrape and save an Article, send a message to the client
-    res.redirect("/");
-  });
+    // res.redirect("/");
+   
 
+  });
+  res.end();
+  //res.render("index", hbsArticleObject);
     });
+
+
 
     // app.get("/scrape", function(req, res) {
 
@@ -106,18 +137,18 @@ module.exports = function(app){
     //   });
 
       // Route for getting all Articles from the db
-app.get("/articles", function(req, res) {
-    // Grab every document in the Articles collection
-    db.Article.find({})
-      .then(function(dbArticle) {
-        // If we were able to successfully find Articles, send them back to the client
-        res.json(dbArticle);
-      })
-      .catch(function(err) {
-        // If an error occurred, send it to the client
-        res.json(err);
-      });
-  });
+// app.get("/", function(req, res) {
+//     // Grab every document in the Articles collection
+//     db.Article.find({})
+//       .then(function(dbArticle) {
+//         // If we were able to successfully find Articles, send them back to the client
+//         res.json(dbArticle);
+//       })
+//       .catch(function(err) {
+//         // If an error occurred, send it to the client
+//         res.json(err);
+//       });
+//   });
 
     // Route for grabbing a specific Article by id, populate it with it's note
     app.get("/articles/:id", function(req, res) {

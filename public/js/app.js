@@ -1,15 +1,21 @@
 // Grab the articles as a json
-$.get("/articles", function(data) {
-    // For each one
-    for (var i = 0; i < data.length; i++) {
-      // Display the apropos information on the page
-      $("#articles").append("<p data-id='" + data[i]._id + "'> <h2>" + data[i].title + "</h2>" + data[i].url +"<br/>"+data[i].text+"<br/> <img id='newimg' src='"+ data[i].img+"'/>"+"</p>");
-      $("#articles").append("<button id ='saveBtn' data-id='" + data[i]._id + "'>"+"Save Articles"+"</button>");
-      $("#articles").append("<button id ='deleteBtn' data-id='" + data[i]._id + "'>"+"Delete Articles"+"</button>");
+// $.get("/", function(data) {
+//     // For each one
+//     for (var i = 0; i < data.length; i++) {
+//       // Display the apropos information on the page
+//       $("#articles").append("<p data-id='" + data[i]._id + "'> <h2>" + data[i].title + "</h2>" + data[i].url +"<br/>"+data[i].text+"<br/> <img id='newimg' src='"+ data[i].img+"'/>"+"</p>");
+//       $("#articles").append("<button id ='saveBtn' data-id='" + data[i]._id + "'>"+"Save Articles"+"</button>");
+//       $("#articles").append("<button id ='deleteBtn' data-id='" + data[i]._id + "'>"+"Delete Articles"+"</button>");
 
-    }
+//     }
+//   });
+
+
+
+  $(document).on("click", "#myBtn", () => { 
+    console.log(" the scrape btn is clicked");
+    fetch("/scrape", {method: "GET"}).then(() => window.location.reload());
   });
-
   // $.get("/", (req, res) => res.render("index"));
 
   
@@ -32,9 +38,27 @@ $.get("/articles", function(data) {
 
       });
   })
+
+  $(document).on("click", "#savedArticles",function(){
+    console.log("I clicked a saved article button");
+    $.ajax({
+      method: "POST",
+      url: "/save" ,
+      data: {
+        
+      }
+    })
+      // With that done
+      .then(function(data) {
+        // Log the response
+        console.log(data);
+
+
+      });
+  })
   
   // Whenever someone clicks a p tag
-  $(document).on("click", "p", function() {
+  $(document).on("click", ".clicking", function() {
     // Empty the notes from the note section
     $("#notes").empty();
     // Save the id from the p tag
