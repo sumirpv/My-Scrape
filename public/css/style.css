@@ -1,0 +1,95 @@
+#wrapper {
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 5%;
+}
+body{
+    background-color: #7ab7b7;
+
+}
+.navbar{
+clear: both;
+font-size: 12px;
+color: #ccc;
+text-align: center;
+background: #666;
+}
+img{
+    margin-top: -22px;
+    height: 300px;
+    width: 100%;
+    background-color: #ccc;
+}
+#newimg{
+        margin-top: 18px; 
+        height: 195px;
+        width: 38%;
+        background-color: #ccc;
+}
+#articles {
+    display: inline-block;
+    overflow: auto;
+    width: 60%;
+    height: 700px;
+}
+
+#notes {
+    float: right;
+    width: 30%;
+}
+
+textarea,
+input {
+    display: block;
+    width: 100%;
+    background-color: rgb(134, 218, 218);
+}
+
+input {
+    height: 36px;
+    font-size: 24px;
+}
+
+textarea {
+    height: 200px;
+    font-size: 18px;
+}
+
+.border-right {
+    text-align: center;
+    /* margin: 30px; */
+    width: 200px;
+}
+
+.border {
+    display: inline-block;
+
+}
+
+.btn1{
+    width: 300px;
+    height:80px;
+    background-color: #4aaaa5 !important;
+    border-radius: 0px;
+    margin-left: 2%;
+}
+.footer {
+/*position: fixed;*/
+left: 0;
+bottom: 0;
+width: 100%;
+text-align: center;
+padding: 30px 0;
+clear: both;
+color: #fff;
+color: #ccc;
+text-align: center;
+background: #666;
+}
+#navTitle{
+    font-size: 31px;
+}
+.borderTitle{
+    width: 250px;
+}
