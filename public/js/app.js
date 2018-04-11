@@ -3,8 +3,10 @@ $.get("/articles", function(data) {
     // For each one
     for (var i = 0; i < data.length; i++) {
       // Display the apropos information on the page
-      $("#articles").append("<p data-id='" + data[i]._id + "'> <h2>" + data[i].title + "</h2>" + data[i].url +"<br/>"+data[i].text+"<br/> <img id='newimg' src='"+ data[i].img+"'/></p>");
+      $("#articles").append("<p data-id='" + data[i]._id + "'> <h2>" + data[i].title + "</h2>" + data[i].url +"<br/>"+data[i].text+"<br/> <img id='newimg' src='"+ data[i].img+"'/>"+"</p>");
       $("#articles").append("<button id ='saveBtn' data-id='" + data[i]._id + "'>"+"Save Articles"+"</button>");
+      $("#articles").append("<button id ='deleteBtn' data-id='" + data[i]._id + "'>"+"Delete Articles"+"</button>");
+
     }
   });
 
@@ -27,11 +29,12 @@ $.get("/articles", function(data) {
         // Log the response
         console.log(data);
 
+
       });
   })
   
   // Whenever someone clicks a p tag
-  $(document).on("click", "#articles", function() {
+  $(document).on("click", "p", function() {
     // Empty the notes from the note section
     $("#notes").empty();
     // Save the id from the p tag
@@ -92,4 +95,42 @@ $.get("/articles", function(data) {
     $("#titleinput").val("");
     $("#bodyinput").val("");
   });
+
+  $(document).on("click","#deleteBtn", function(event) { 
+    console.log("delete bt is clicked");
+    var thisId = $(this).attr("data-id");
+    console.log("this is id",thisId)
+    $.ajax({
+      method: "DELETE",
+      url: "/delete/" + thisId,
+    })
+      .done(function(data) {
+        $("#" + data._id).remove();
+        location.reload();
+      });
+  });
+
+
+
+
+    // console.log("delete bt is clicked");
+    // let modalID = $(this).parent().attr("id");
+    // let sessionArticle = JSON.parse(sessionStorage.getItem(modalID));
+
+    // fetch("/api/deleteArticle", { 
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(sessionArticle)
+    // }).then((response) => {
+    //   console.log(response)
+    //   $("#modalMessage").modal('open');
+    //   $("#modalMessage .modal-content ").html('<h4> Sucessfully Deleted:' + sessionArticle["_id"] + "</h4>");
+    //   setTimeout(() => $("#modalMessage").modal('close'), 2000);
+    //   $(document.getElementById(sessionArticle["_id"])).css('display', 'none');
+    // });
+
+    // event.stopPropagation();
+  // });
   

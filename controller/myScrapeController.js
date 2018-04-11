@@ -166,13 +166,13 @@ app.get("/articles", function(req, res) {
 
     .then(function(response) {
 
-      // if (response === null) { 
-      //   db.Articles.create(articleObject).then((response) => console.log(" ")).catch(err => res.json(err));
+      if (response === null) { 
+        db.Article.create(articleObject).then((response) => console.log(" ")).catch(err => res.json(err));
 
         
-      // } 
-      res.redirect("savedArticle.handelbars");
-      //  res.send("Article Saved");
+      } 
+      //
+        res.send("Article Saved");
     }).catch(function(err) {
       res.json(err);
     });
@@ -182,13 +182,46 @@ app.get("/articles", function(req, res) {
   app.get("/api/savedArticles", function(req, res)  {
     // Grab every document in the Articles collection
     db.Article.find({ savedArticle: true}). 
-    then(function(dbArticle) {
-      console.log(dbArticle);
-      res.json(dbArticle);
+    then(function(data) {
+      console.log(data);
+      // res.redirect("savedArticle.handelbars");
+      //res.json(dbArticle);
+        //       for (var i = 0; i < data.length; i++) {
+        //   // Display the apropos information on the page
+        //   $("#articles").append("<p data-id='" + data[i]._id + "'> <h2>" + data[i].title + "</h2>" + data[i].url +"<br/>"+data[i].text+"<br/> <img id='newimg' src='"+ data[i].img+"'/></p>");
+        //   $("#articles").append("<button id ='deleteBtn' data-id='" + data[i]._id + "'>"+"Delete Articles"+"</button>");
+        // }
+        res.redirect("/");
     }).catch(function(err) {
       
       res.json(err);
     });
-  }); // Default Route
+  }); 
+  
+
+ 
+// delete by id
+app.delete("/delete/:id", function(req, res) {
+  //console.log("ID is getting read for delete" + req.params.id);
+  console.log("Delete function is ready.");
+  db.Article.findOneAndRemove({"_id": req.params.id}, function (err, offer) {
+    if (err) {
+      console.log("Not able to delete:" + err);
+    } else {
+      console.log("Able to delete, Yay");
+    }
+    res.end();
+    // location.reload();
+
+    //  res.redirect("/");
+
+    // setTimeout(function(){
+    //     },1000)
+      
+  });
+    //  location.reload();
+
+});
+
 
 };
