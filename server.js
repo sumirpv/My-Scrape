@@ -30,8 +30,22 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/myScrapedb");
+//mongoose.connect("mongodb://localhost/myScrapedb");
+// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/myScrapedb";
 
+// Set mongoose to leverage built in JavaScript ES6 Promises
+// Connect to the Mongo DB
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI, {
+});
+
+ var mongooseConnection = mongoose.connection;
+
+mongooseConnection.on('error', console.error.bind(console, 'connection error:'));
+mongooseConnection.once('open', function() {
+  console.log(`Sucessfully Connected to Mongo DB !`); 
+});
 // Routes
 
   // Scrape data from one site and place it into the mongodb db

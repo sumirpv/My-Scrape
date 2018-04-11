@@ -7,13 +7,8 @@ var mongoose = require("mongoose");
 
 
 var db = require("../models/index.js");
-mongoose.connect("mongodb://localhost/myScrapedb");
-var mongooseConnection = mongoose.connection;
+// mongoose.connect("mongodb://localhost/myScrapedb");
 
-mongooseConnection.on('error', console.error.bind(console, 'connection error:'));
-mongooseConnection.once('open', function() {
-  console.log(`Sucessfully Connected to Mongo DB !`); 
-});
 
 
 
