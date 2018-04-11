@@ -5,23 +5,42 @@
     <div class="nav navbar-nav navbar-left ">
       <div class="navbar-header border">
 
-      <div class="border-right border borderTitle">
-        <h1 id="navTitle">Mongo Scraper</h1>
-      </div>
+        <div class="border-right border borderTitle">
+          <h1 id="navTitle">Mongo Scraper</h1>
+        </div>
 
       </div>
       <div class="border-right border">
-        <a href="/"><h3>Home</h3></a>
+        <a href="/">
+          <h3>Home</h3>
+        </a>
       </div>
 
       <div class="border-right border">
-        <a href="/saved"><h3>Saved Articles</h3></a>
+        <a href="/saved">
+          <h3>Saved Articles</h3>
+        </a>
       </div>
 
       <div class="border-right border">
-        <button class="btn1 btn-info btn-lg" id="scrapeNewBtn" role="button">
-          <a href ="/scrape"><h3>Scrape New Articles</h3></a>
-        </button>
+        {{!-- <button> --}}
+          
+          <!-- Trigger/Open The Modal -->
+          <button id="myBtn" class ="btn1 btn-info btn-lg">
+           <a href="/scrape"> <h3>Scrape New Articles</h3></a>
+          </button>
+
+          <!-- The Modal -->
+          <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <p><b><h1>Adding New Articles ....</h1></b></p>
+            </div>
+
+          </div>
+        {{!-- </button> --}}
       </div>
 
     </div>
@@ -31,27 +50,55 @@
   <!-- /.container-fluid -->
 </nav>
 
-    <div class="cont-main1 ">
-          <img src="https://www.scrapebot.nl/wp-content/uploads/2018/03/2-2-e1520324739293.png">
-          <div class="container">
-            <div class ="row">
-              <div class ="col-lg-12 col-md-12 col-sm-12">
-                <h2>
-                    <i>My Scraping Data</i>
-                </h2>
-            </div>
-          </div>
-<div class="row">
-  <div class="col-lg-12 col-md-12 col-sm-12">
-      <div id="articles"></div>
-      <div id="notes"></div>
+<div class="cont-main1 ">
+  <img src="https://www.scrapebot.nl/wp-content/uploads/2018/03/2-2-e1520324739293.png">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <h2>
+          <i>My Scraping Data</i>
+        </h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div id="articles"></div>
+        <div id="notes"></div>
+      </div>
+    </div>
+
+
   </div>
 </div>
-
-              
-          </div>
-        </div>
 
 <div class="footer">
   Copyright &copy; Sumitha
 </div>
+
+<script>
+  // Get the modal
+  var modal = document.getElementById('myModal');
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("myBtn");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks the button, open the modal 
+  btn.onclick = function () {
+    modal.style.display = "block";
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
