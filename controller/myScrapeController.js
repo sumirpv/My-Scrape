@@ -18,7 +18,7 @@ module.exports = function(app){
 
   app.get("/", function(req, res) {
 
-    db.Article.find({})
+    db.Article.find({ savedArticle: false })
     .then(function(dbArticle) {
       // If we were able to successfully find Articles, send them back to the client
       console.log(dbArticle);
@@ -202,8 +202,8 @@ module.exports = function(app){
 
         
       } 
-      //
-        res.send("Article Saved");
+      res.end();
+        //res.send("Article Saved");
     }).catch(function(err) {
       res.json(err);
     });

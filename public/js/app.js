@@ -23,12 +23,11 @@
       .then(function(data) {
         
         console.log(data);
-
-
-      }).done(function(data) {
         $("#" + data._id).remove();
         location.reload();
-      });
+
+
+      })
   })
 
   $(document).on("click", "#savedArticles",function(){

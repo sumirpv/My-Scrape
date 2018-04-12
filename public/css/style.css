@@ -131,3 +131,7 @@ background: #666;
     text-decoration: none;
     cursor: pointer;
 }
+
+#notes{
+    width: 100%;
+}
