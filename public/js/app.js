@@ -1,15 +1,3 @@
-// Grab the articles as a json
-// $.get("/", function(data) {
-//     // For each one
-//     for (var i = 0; i < data.length; i++) {
-//       // Display the apropos information on the page
-//       $("#articles").append("<p data-id='" + data[i]._id + "'> <h2>" + data[i].title + "</h2>" + data[i].url +"<br/>"+data[i].text+"<br/> <img id='newimg' src='"+ data[i].img+"'/>"+"</p>");
-//       $("#articles").append("<button id ='saveBtn' data-id='" + data[i]._id + "'>"+"Save Articles"+"</button>");
-//       $("#articles").append("<button id ='deleteBtn' data-id='" + data[i]._id + "'>"+"Delete Articles"+"</button>");
-
-//     }
-//   });
-
 
 
   $(document).on("click", "#myBtn", () => { 
@@ -30,12 +18,16 @@
         
       }
     })
+    
       // With that done
       .then(function(data) {
-        // Log the response
+        
         console.log(data);
 
 
+      }).done(function(data) {
+        $("#" + data._id).remove();
+        location.reload();
       });
   })
 
@@ -57,11 +49,14 @@
       });
   })
   
+
+ 
   // Whenever someone clicks a p tag
-  $(document).on("click", ".clicking", function() {
+  $(document).on("click", "#noteBtn",function() {
+    console.log("I clicked a note  button");
     // Empty the notes from the note section
-    $("#notes").empty();
-    // Save the id from the p tag
+     $("#notes").empty();
+
     var thisId = $(this).attr("data-id");
   
     // Now make an ajax call for the Article
@@ -73,7 +68,7 @@
       .then(function(data) {
         console.log(data);
         // The title of the article
-        $("#notes").append("<h2>" + data.title + "</h2>");
+        $("#notes").append("<h2> The article id is : " + data._id + "</h2>");
         // An input to enter a new title
         $("#notes").append("<input id='titleinput' name='title' >");
         // A textarea to add a new note body
@@ -135,26 +130,4 @@
   });
 
 
-
-
-    // console.log("delete bt is clicked");
-    // let modalID = $(this).parent().attr("id");
-    // let sessionArticle = JSON.parse(sessionStorage.getItem(modalID));
-
-    // fetch("/api/deleteArticle", { 
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(sessionArticle)
-    // }).then((response) => {
-    //   console.log(response)
-    //   $("#modalMessage").modal('open');
-    //   $("#modalMessage .modal-content ").html('<h4> Sucessfully Deleted:' + sessionArticle["_id"] + "</h4>");
-    //   setTimeout(() => $("#modalMessage").modal('close'), 2000);
-    //   $(document.getElementById(sessionArticle["_id"])).css('display', 'none');
-    // });
-
-    // event.stopPropagation();
-  // });
   

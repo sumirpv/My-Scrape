@@ -40,9 +40,7 @@
     </div>
     <div class="row">
       <div class="col-lg-9 col-md-19 col-sm-19">
-        {{!--
-        <div id="articles"></div>
-        <div id="notes"></div> --}} 
+      
         {{#each articles}}
          {{!--
         <div class="panel panel-primary">
@@ -58,23 +56,11 @@
                   <h4>{{this.text}}</h4><br>
                   <img id='newimg' src="{{this.img}}" />
                 </p>
-                <button type="button" id ='saveBtn' data-id="{{this._id }}" >Save Articles</button>
-                {{!--
-                <h3 class="panel-title pull-left">{{this.title}}</h3> --}}
+                <button type="button" id ='noteBtn' data-id="{{this._id }}" >Articles Note </button>
+                <button type="button" id ='deleteBtn' data-id="{{this._id}} ">Delete Articles</button>
+                    <div id="notes"></div> 
 
-              {{!-- </div>
-              <div class="col-xs-3">
-                <form action="/save" method="POST">
-                  <input id="article-title" type="hidden" name="title" value="{{this.title}}">
-                  <input id="article-link" type="hidden" name="link" value={{this.link}}>
-                </form>
-              </div> --}}
-
-
-
-            
-
-
+            </div>
             </div>
             {{/each}}
 
