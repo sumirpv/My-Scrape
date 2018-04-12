@@ -51,12 +51,16 @@
 
  
   // Whenever someone clicks a p tag
-  $(document).on("click", "#noteBtn",function() {
+  $(document).on("click", ".noteBtn",function() {
     console.log("I clicked a note  button");
     // Empty the notes from the note section
-     $("#notes").empty();
+     $(".notes").empty();
 
     var thisId = $(this).attr("data-id");
+    console.log(thisId);
+    
+    var divId= "#"+ $(this).attr("data-id")
+    console.log(divId)
   
     // Now make an ajax call for the Article
     $.ajax({
@@ -67,13 +71,14 @@
       .then(function(data) {
         console.log(data);
         // The title of the article
-        $("#notes").append("<h2> The article id is : " + data._id + "</h2>");
+        $(divId).append("<h2> The article id is : " + data._id + "</h2>");
         // An input to enter a new title
-        $("#notes").append("<input id='titleinput' name='title' >");
+        $(divId).append("<input id='titleinput' name='title' >");
         // A textarea to add a new note body
-        $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+        $(divId).append("<textarea id='bodyinput' name='body'></textarea>");
         // A button to submit a new note, with the id of the article saved to it
-        $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+        $(divId).append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+        console.log("dataid i s",data._id)
   
         // If there's a note in the article
         if (data.note) {
@@ -87,6 +92,7 @@
   
   // When you click the savenote button
   $(document).on("click", "#savenote", function() {
+    console.log(" this save is clicked");
     // Grab the id associated with the article from the submit button
     var thisId = $(this).attr("data-id");
   
@@ -106,7 +112,7 @@
         // Log the response
         console.log(data);
         // Empty the notes section
-        $("#notes").empty();
+        $(".notes").empty();
       });
   
     // Also, remove the values entered in the input and textarea for note entry
