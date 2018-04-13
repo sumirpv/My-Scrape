@@ -53,7 +53,7 @@ module.exports = function(app){
 
   app.get("/scrape", function(req, res) {
 
-    axios.get("http://www.movies.com/movie-news?pn=3").then(function(response) {
+    axios.get("http://www.movies.com/movie-news?pn=5").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
     var result = {};

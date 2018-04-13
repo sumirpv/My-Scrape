@@ -73,8 +73,10 @@
         // The title of the article
         $(divId).append("<h2> The article id is : " + data._id + "</h2>");
         // An input to enter a new title
-        $(divId).append("<input id='titleinput' name='title' >");
+        $(divId).append("<h3> The old note is : </h3>")
+        $(divId).append("<input id='titleinput'  disabled='disabled' name='title' >");
         // A textarea to add a new note body
+        $(divId).append("<h3> Enter your new note : </h3>")
         $(divId).append("<textarea id='bodyinput' name='body'></textarea>");
         // A button to submit a new note, with the id of the article saved to it
         $(divId).append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
@@ -83,9 +85,10 @@
         // If there's a note in the article
         if (data.note) {
           // Place the title of the note in the title input
-          $("#titleinput").val(data.note.title);
+          $("#titleinput").val(data.note.oldNote);
+          console.log("old note is ",data.note.oldNote)
           // Place the body of the note in the body textarea
-          $("#bodyinput").val(data.note.body);
+          //$("#bodyinput").val(data.note.newNote);
         }
       });
   });
@@ -102,9 +105,9 @@
       url: "/articles/" + thisId,
       data: {
         // Value taken from title input
-        title: $("#titleinput").val(),
+       // oldNote: $("#titleinput").val(),
         // Value taken from note textarea
-        body: $("#bodyinput").val()
+       oldNote: $("#bodyinput").val()
       }
     })
       // With that done
